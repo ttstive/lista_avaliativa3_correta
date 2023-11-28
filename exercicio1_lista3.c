@@ -25,8 +25,8 @@ int valores_romano(char roman) {
 void transform_binary(int b) {
     if (b > 1) {
         transform_binary(b / 2);
-        printf("%d", b % 2);
     }
+    printf("%d", b % 2);
 }
 
 void transform_hex(int num) {
@@ -35,7 +35,7 @@ void transform_hex(int num) {
         return;
     }
 
-    char hex_num[12]; // Maximum characters = 12
+    char hex_num[12]; 
     int i = 0;
 
     while (num != 0) {
@@ -44,14 +44,13 @@ void transform_hex(int num) {
         if (temp < 10) {
             hex_num[i] = temp + '0';
         } else {
-            hex_num[i] = temp - 10 + 'A';
+            hex_num[i] = temp - 10 + 'a'; 
         }
 
         num = num / 16;
         i++;
     }
 
-    printf("Hexadecimal: ");
     for (int j = i - 1; j >= 0; j--) {
         printf("%c", hex_num[j]);
     }
@@ -83,14 +82,21 @@ int transform_decimal(char *num) {
 }
 
 int main() {
-     char roman_numeral[12]; // Numero máximo 12 caracteres
-    scanf("%12s", roman_numeral);
+    char roman_numeral[13]; 
+    fgets(roman_numeral, 13, stdin); 
+
+    // Remove newline character if present
+    size_t len = strlen(roman_numeral);
+    if (len > 0 && roman_numeral[len-1] == '\n') {
+        roman_numeral[--len] = '\0';
+    }
 
     int decimal_value = transform_decimal(roman_numeral);
     if (decimal_value != -1) {
         printf("%s na base 2: ", roman_numeral);
         transform_binary(decimal_value);
-        printf("\n%s na base 10 : %d\n", roman_numeral, decimal_value);
+        printf("\n"); 
+        printf("%s na base 10: %d\n", roman_numeral, decimal_value);
 
         printf("%s na base 16: ", roman_numeral);
         transform_hex(decimal_value);
